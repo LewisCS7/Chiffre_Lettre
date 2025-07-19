@@ -8,43 +8,45 @@
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
 
-  <body class="min-h-screen flex items-center justify-center p-4 font-sans bg-gradient-to-br from-indigo-100 via-sky-100 to-emerald-100">
-    <div class="w-full max-w-lg bg-white/80 backdrop-blur-md rounded-3xl shadow-2xl p-8 sm:p-12 space-y-8 border border-slate-200">
-      <h1 class="text-3xl sm:text-4xl font-extrabold text-center bg-gradient-to-r from-indigo-500 via-sky-500 to-emerald-400 bg-clip-text text-transparent drop-shadow-md mb-2">
-        Convertisseur de nombres
+  <body class="min-h-screen flex items-center justify-center p-0 font-sans bg-gradient-to-br from-indigo-100 via-sky-100 to-emerald-100">
+    <div class="w-full max-w-lg min-h-[70vh] sm:min-h-[80vh] flex flex-col justify-center bg-white/80 backdrop-blur-md rounded-3xl shadow-2xl px-2 sm:px-8 py-6 sm:py-12 space-y-8 border border-slate-200 mx-auto my-6 sm:my-10">
+      <h1 class="text-3xl sm:text-5xl font-extrabold text-center bg-gradient-to-r from-indigo-500 via-sky-500 to-emerald-400 bg-clip-text text-transparent drop-shadow-lg mb-2 tracking-tight">
+        Convertisseur
       </h1>
-      <p class="text-center text-slate-500 text-base mb-2">Saisissez un nombre pour obtenir son écriture en toutes lettres</p>
+      <p class="text-center text-slate-500 text-base sm:text-lg mb-4">
+        Nombres → Lettres
+      </p>
 
-      <label for="numberInput" class="block text-sm font-semibold text-slate-700 mb-1">
-        Entrez un nombre
-      </label>
       <input
         id="numberInput"
         type="text"
         inputmode="decimal"
-        class="w-full px-5 py-3 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-400 focus:border-emerald-400 transition text-lg bg-white/70 placeholder-slate-400 shadow-sm"
+        class="w-full px-4 sm:px-6 py-4 sm:py-6 border-2 border-emerald-300 rounded-2xl focus:ring-4 focus:ring-emerald-300 focus:border-emerald-500 transition text-3xl sm:text-4xl font-mono tracking-wider bg-white/90 placeholder-slate-400 shadow-lg outline-none text-slate-800 text-center"
         placeholder="Ex. 1234,56"
         autocomplete="off"
+        style="font-variant-numeric: tabular-nums; letter-spacing: 0.08em;"
+        inputmode="decimal"
+        aria-label="Nombre à convertir"
       />
 
-      <button
-        id="convertBtn"
-        class="w-full bg-gradient-to-r from-indigo-500 via-sky-500 to-emerald-400 text-white font-bold py-3 rounded-lg shadow-md hover:from-indigo-600 hover:to-emerald-500 transition text-lg tracking-wide"
-      >
-        Convertir en lettres
-      </button>
-
-      <div id="result" class="mt-4 p-5 bg-gradient-to-br from-white/80 via-sky-50 to-emerald-50 rounded-xl text-slate-800 text-lg leading-relaxed break-words min-h-[3.5rem] shadow-inner border border-slate-100">
-        Le résultat apparaîtra ici…
+      <div class="relative mt-6">
+        <div id="result" class="p-4 sm:p-6 bg-gradient-to-br from-white/90 via-sky-50 to-emerald-50 rounded-2xl text-slate-800 text-lg sm:text-2xl leading-relaxed break-words min-h-[3rem] sm:min-h-[4rem] shadow-inner border border-slate-100 text-center select-all transition-all duration-200 pr-12">
+          Le résultat apparaîtra ici…
+        </div>
+        <button
+          id="copyBtn"
+          class="absolute top-1/2 right-4 -translate-y-1/2 bg-white/80 hover:bg-emerald-100 border border-slate-200 rounded-full p-2 shadow transition focus:outline-none focus:ring-2 focus:ring-emerald-400"
+          type="button"
+          aria-label="Copier le résultat"
+          title="Copier le résultat"
+          style="display:none"
+        >
+          <svg id="copyIcon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="10" height="12" rx="2" stroke="currentColor" stroke-width="2" fill="none"/>
+            <rect x="5" y="3" width="10" height="12" rx="2" stroke="currentColor" stroke-width="2" fill="none"/>
+          </svg>
+        </button>
       </div>
-      <button
-        id="copyBtn"
-        class="w-full mt-2 bg-gradient-to-r from-slate-200 via-sky-100 to-emerald-100 text-slate-700 font-medium py-2.5 rounded-lg hover:from-slate-300 hover:to-emerald-200 transition border border-slate-200 shadow-sm"
-        type="button"
-        aria-label="Copier le résultat"
-      >
-        Copier le résultat
-      </button>
     </div>
 
     <!-- Simple JS converter (covers integers & 2-decimals) -->
@@ -128,15 +130,23 @@
         return parts.join(' ');
       }
 
-      // Gestionnaire principal
-      document.getElementById('convertBtn').addEventListener('click', () => {
+      // Fonction d'affichage dynamique du résultat
+      function updateResult() {
         const val = document.getElementById('numberInput').value.trim().replace(',', '.');
+        const resultDiv = document.getElementById('result');
+        const copyBtn = document.getElementById('copyBtn');
+        // Par défaut, masquer l'icône
+        copyBtn.style.display = 'none';
+        if (!val) {
+          resultDiv.textContent = 'Le résultat apparaîtra ici…';
+          return;
+        }
         if (!/^-?\d+(\.\d{1,2})?$/.test(val)) {
-          document.getElementById('result').textContent = 'Veuillez saisir un nombre valide.';
+          resultDiv.textContent = 'Veuillez saisir un nombre valide.';
           return;
         }
         const num = parseFloat(val);
-        if (num === 0) { document.getElementById('result').textContent = 'zéro'; return; }
+        if (num === 0) { resultDiv.textContent = 'zéro'; copyBtn.style.display = ''; return; }
 
         const sign = num < 0 ? 'moins ' : '';
         const parts = Math.abs(num).toFixed(2).split('.');
@@ -145,21 +155,27 @@
         if (parts[1] && parts[1] !== '00') {
           result += ' virgule ' + parts[1].split('').map(d => UNITS[parseInt(d)]).join(' ');
         }
-        document.getElementById('result').textContent = result;
-      });
+        resultDiv.textContent = result;
+        // Afficher l'icône seulement si un vrai résultat
+        copyBtn.style.display = '';
+      }
 
-      // Gestion du bouton Copier
+      // Affichage dynamique lors de la saisie
+      document.getElementById('numberInput').addEventListener('input', updateResult);
+
+      // Gestion de la copie via l'icône
       document.getElementById('copyBtn').addEventListener('click', () => {
         const resultText = document.getElementById('result').textContent;
         if (resultText && resultText.trim() !== '' && resultText !== 'Le résultat apparaîtra ici…') {
           navigator.clipboard.writeText(resultText).then(() => {
-            const btn = document.getElementById('copyBtn');
-            const old = btn.textContent;
-            btn.textContent = 'Copié !';
-            btn.classList.add('bg-green-200','text-green-800');
+            const icon = document.getElementById('copyIcon');
+            const oldColor = icon.className;
+            icon.classList.remove('text-emerald-500');
+            icon.classList.add('text-green-600');
+            icon.innerHTML = '<path stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />';
             setTimeout(() => {
-              btn.textContent = old;
-              btn.classList.remove('bg-green-200','text-green-800');
+              icon.className = 'h-6 w-6 text-emerald-500';
+              icon.innerHTML = '<rect x="9" y="9" width="10" height="12" rx="2" stroke="currentColor" stroke-width="2" fill="none"/><rect x="5" y="3" width="10" height="12" rx="2" stroke="currentColor" stroke-width="2" fill="none"/>';
             }, 1200);
           });
         }
