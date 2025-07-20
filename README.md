@@ -1,6 +1,6 @@
 # Convertisseur – Chiffres en lettres
 
-Convertisseur web moderne permettant de transformer un nombre (entier ou décimal) en toutes lettres en français, avec une interface professionnelle et zen.
+Application web moderne permettant de transformer instantanément un nombre (entier ou décimal) en toutes lettres en français, avec une interface professionnelle, zen et un arrière-plan dégradé.
 
 ## Fonctionnalités
 
@@ -16,15 +16,14 @@ Convertisseur web moderne permettant de transformer un nombre (entier ou décima
 
 ## Aperçu
 
-![Aperçu de l'application](https://user-images.githubusercontent.com/0000000/placeholder.png)
+![Aperçu de l'application](Capture_d'écran.png)
 
 ## Utilisation
 
 1. Ouvrez `index.html` dans votre navigateur.
-2. Saisissez un nombre (ex : `1234,56` ou `-987654321`).
-3. Cliquez sur **Convertir en lettres**.
-4. Le résultat s'affiche en toutes lettres.
-5. Cliquez sur **Copier le résultat** pour le mettre dans le presse-papier.
+2. Saisissez un nombre (ex : `1234,56` ou `-987654321`) dans le champ prévu.
+3. Le résultat s'affiche automatiquement en toutes lettres sous le champ.
+4. Cliquez sur l'icône de copie à droite du résultat pour le mettre dans le presse-papier.
 
 ## Exemples
 
@@ -50,6 +49,7 @@ Convertisseur web moderne permettant de transformer un nombre (entier ou décima
 ```
 Chiffre_Lettre/
 ├── index.html         # Application principale (tout-en-un)
+├── background.jpg     # Image d'arrière-plan (optionnelle)
 └── README.md          # Ce fichier
 ```
 
@@ -62,11 +62,11 @@ Pour lancer les tests intégrés :
 
 ## Déploiement
 
-- Déposez simplement `index.html` sur n'importe quel hébergement statique (GitHub Pages, Netlify, Vercel, etc.).
+- Déposez simplement `index.html` (et l'image d'arrière-plan si utilisée) sur n'importe quel hébergement statique (GitHub Pages, Netlify, Vercel, etc.).
 
 ## Auteur
 
-- [LewisCS7](https://github.com/LewisCS7)
+- [Lewis HOUNNAHIN](https://github.com/LewisCS7)
 
 ## Licence
 
