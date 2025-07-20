@@ -23,7 +23,7 @@
       <h1 class="text-3xl sm:text-5xl font-extrabold text-center bg-gradient-to-r from-indigo-500 via-sky-500 to-emerald-400 bg-clip-text text-transparent drop-shadow-lg tracking-tight">
         CONVERTISSEUR
       </h1>
-      <p class="text-center text-slate-500 text-base sm:text-lg mb-2">
+      <p id="switchText" class="text-center text-slate-500 text-base sm:text-lg mb-2 transition-opacity duration-500 opacity-100">
         Nombres → Lettres
       </p>
 
@@ -78,6 +78,19 @@
 
     <!-- Simple JS converter (covers integers & 2-decimals) -->
     <script>
+      // Animation texte alterné sous le titre
+      const switchText = document.getElementById('switchText');
+      const texts = ['Nombres → Lettres', '@HOUNNAHIN'];
+      let textIndex = 0;
+      setInterval(() => {
+        // Animation fondu
+        switchText.style.opacity = 0;
+        setTimeout(() => {
+          textIndex = (textIndex + 1) % texts.length;
+          switchText.textContent = texts[textIndex];
+          switchText.style.opacity = 1;
+        }, 400);
+      }, 2000);
       // Liste des mots de base
       const UNITS = ['zéro', 'un', 'deux', 'trois', 'quatre', 'cinq', 'six', 'sept', 'huit', 'neuf'];
       const TEENS  = ['dix', 'onze', 'douze', 'treize', 'quatorze', 'quinze', 'seize', 'dix-sept', 'dix-huit', 'dix-neuf'];
