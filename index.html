@@ -8,7 +8,8 @@
     <link rel="manifest" href="manifest.webmanifest">
     <link rel="icon" href="icon-192.png" type="image/png">
     <link rel="apple-touch-icon" href="icon-192.png">
-    <meta name="theme-color" content="#0ea5e9">
+    <!-- <meta name="theme-color" content="#0ea5e9"> -->
+    <link rel="stylesheet" href="style.css">
     <!-- Tailwind CSS v4 CDN (alpha build) -->
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
@@ -20,7 +21,7 @@
     </div>
     <div class="w-full max-w-lg min-h-[70vh] sm:min-h-[80vh] flex flex-col justify-center bg-white backdrop-blur-md rounded-3xl shadow-2xl px-2 sm:px-8 py-6 sm:py-12 space-y-8 border-2 border-blue-300 mx-auto my-6 sm:my-10">
       <h1 class="text-3xl sm:text-5xl font-extrabold text-center bg-gradient-to-r from-indigo-500 via-sky-500 to-emerald-400 bg-clip-text text-transparent drop-shadow-lg tracking-tight">
-        Convertisseur
+        CONVERTISSEUR
       </h1>
       <p class="text-center text-slate-500 text-base sm:text-lg mb-2">
         Nombres → Lettres
@@ -30,31 +31,48 @@
         id="numberInput"
         type="text"
         inputmode="decimal"
-        class="w-full px-4 sm:px-6 py-4 sm:py-6 border-2 border-emerald-300 rounded-2xl focus:ring-4 focus:ring-emerald-300 focus:border-emerald-500 transition text-3xl sm:text-4xl font-mono tracking-wider bg-white/90 placeholder-slate-400 shadow-lg outline-none text-slate-800 text-center"
+        class="w-full px-4 sm:px-6 py-4 sm:py-6 border-2 border-emerald-300 rounded-2xl focus:ring-4 focus:ring-emerald-300 focus:border-emerald-500 transition text-3xl sm:text-4xl font-mono tracking-wider bg-white/90 placeholder-slate-200 shadow-lg outline-none text-slate-800 text-center input-numeric"
         placeholder="Ex: 1234,56"
         autocomplete="off"
-        style="font-variant-numeric: tabular-nums; letter-spacing: 0.08em;"
         inputmode="decimal"
         aria-label="Nombre à convertir"
       />
 
       <div class="relative mt-6">
-        <div id="result" class="p-4 sm:p-6 bg-gradient-to-br from-white/90 via-sky-50 to-emerald-50 rounded-2xl text-slate-800 text-lg sm:text-2xl leading-relaxed break-words min-h-[3rem] sm:min-h-[4rem] shadow-inner border border-slate-100 text-center select-all transition-all duration-200 pr-12">
-          Le résultat apparaîtra ici…
+        <div class="bg-gradient-to-br from-white/90 via-sky-50 to-emerald-50 rounded-2xl shadow-inner border border-slate-100">
+          <div class="flex items-center justify-between px-4 pt-4">
+            <span class="font-semibold text-slate-700 text-base sm:text-lg select-none">Résultat :</span>
+            <div class="flex gap-1">
+              <button
+                id="copyBtn"
+                class="p-1.5 rounded-full border border-slate-200 bg-white/80 hover:bg-emerald-100 shadow transition focus:outline-none focus:ring-2 focus:ring-emerald-400 disabled:opacity-40 disabled:cursor-not-allowed btn-copy"
+                type="button"
+                aria-label="Copier le résultat"
+                title="Copier le résultat"
+              >
+                <svg id="copyIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <rect x="9" y="9" width="10" height="12" rx="2" stroke="currentColor" stroke-width="2" fill="none"/>
+                  <rect x="5" y="3" width="10" height="12" rx="2" stroke="currentColor" stroke-width="2" fill="none"/>
+                </svg>
+              </button>
+              <button
+                id="speakBtn"
+                class="p-1.5 rounded-full border border-slate-200 bg-white/80 hover:bg-blue-100 shadow transition focus:outline-none focus:ring-2 focus:ring-blue-400 disabled:opacity-40 disabled:cursor-not-allowed btn-speak"
+                type="button"
+                aria-label="Lire le résultat à voix haute"
+                title="Lire le résultat à voix haute"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path d="M11 5L6 9H2v6h4l5 4V5z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                  <path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div id="result" class="px-4 pb-4 pt-2 sm:px-6 sm:pb-6 sm:pt-3 text-slate-300 text-lg sm:text-2xl leading-relaxed break-words min-h-[3rem] sm:min-h-[4rem] text-center select-all transition-all duration-200">
+            Le résultat apparaîtra ici…
+          </div>
         </div>
-        <button
-          id="copyBtn"
-          class="absolute top-1/2 right-4 -translate-y-1/2 bg-white/80 hover:bg-emerald-100 border border-slate-200 rounded-full p-2 shadow transition focus:outline-none focus:ring-2 focus:ring-emerald-400"
-          type="button"
-          aria-label="Copier le résultat"
-          title="Copier le résultat"
-          style="display:none"
-        >
-          <svg id="copyIcon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <rect x="9" y="9" width="10" height="12" rx="2" stroke="currentColor" stroke-width="2" fill="none"/>
-            <rect x="5" y="3" width="10" height="12" rx="2" stroke="currentColor" stroke-width="2" fill="none"/>
-          </svg>
-        </button>
       </div>
     </div>
 
@@ -144,8 +162,12 @@
         const val = document.getElementById('numberInput').value.trim().replace(',', '.');
         const resultDiv = document.getElementById('result');
         const copyBtn = document.getElementById('copyBtn');
-        // Par défaut, masquer l'icône
-        copyBtn.style.display = 'none';
+        const speakBtn = document.getElementById('speakBtn');
+        // Par défaut, masquer l'icône copie et désactiver le bouton vocal
+        copyBtn.classList.add('btn-copy');
+        speakBtn.classList.add('btn-speak');
+        speakBtn.disabled = true;
+        speakBtn.classList.remove('animate-pulse');
         if (!val) {
           resultDiv.textContent = 'Le résultat apparaîtra ici…';
           return;
@@ -155,7 +177,13 @@
           return;
         }
         const num = parseFloat(val);
-        if (num === 0) { resultDiv.textContent = 'zéro'; copyBtn.style.display = ''; return; }
+        if (num === 0) {
+          resultDiv.textContent = 'zéro';
+          copyBtn.classList.remove('btn-copy');
+          speakBtn.classList.remove('btn-speak');
+          speakBtn.disabled = false;
+          return;
+        }
 
         const sign = num < 0 ? 'moins ' : '';
         const parts = Math.abs(num).toFixed(2).split('.');
@@ -165,8 +193,10 @@
           result += ' virgule ' + parts[1].split('').map(d => UNITS[parseInt(d)]).join(' ');
         }
         resultDiv.textContent = result;
-        // Afficher l'icône seulement si un vrai résultat
-        copyBtn.style.display = '';
+        // Afficher les boutons seulement si un vrai résultat
+        copyBtn.classList.remove('btn-copy');
+        speakBtn.classList.remove('btn-speak');
+        speakBtn.disabled = false;
       }
 
       // Affichage dynamique lors de la saisie
@@ -178,7 +208,6 @@
         if (resultText && resultText.trim() !== '' && resultText !== 'Le résultat apparaîtra ici…') {
           navigator.clipboard.writeText(resultText).then(() => {
             const icon = document.getElementById('copyIcon');
-            const oldColor = icon.className;
             icon.classList.remove('text-emerald-500');
             icon.classList.add('text-green-600');
             icon.innerHTML = '<path stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />';
@@ -188,6 +217,31 @@
             }, 1200);
           });
         }
+      });
+
+      // Lecture vocale du résultat
+      const speakBtn = document.getElementById('speakBtn');
+      let utterance = null;
+      let isSpeaking = false;
+      speakBtn.addEventListener('click', () => {
+        const resultText = document.getElementById('result').textContent;
+        if (!resultText || resultText.trim() === '' || resultText === 'Le résultat apparaîtra ici…' || speakBtn.disabled) return;
+        if (!('speechSynthesis' in window)) {
+          alert('La synthèse vocale n\'est pas supportée sur ce navigateur.');
+          return;
+        }
+        speakBtn.disabled = true;
+        speakBtn.classList.add('animate-pulse', 'opacity-60');
+        isSpeaking = true;
+        utterance = new window.SpeechSynthesisUtterance(resultText);
+        utterance.lang = 'fr-FR';
+        utterance.rate = 1;
+        utterance.onend = utterance.onerror = () => {
+          speakBtn.disabled = false;
+          speakBtn.classList.remove('animate-pulse', 'opacity-60');
+          isSpeaking = false;
+        };
+        window.speechSynthesis.speak(utterance);
       });
     // --- Tests unitaires simples ---
     function runTests() {
@@ -234,5 +288,12 @@
     // Décommentez la ligne suivante pour lancer les tests dans la console:
     // runTests();
     </script>
+
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw.js');
+      }
+    </script>
+
   </body>
 </html>

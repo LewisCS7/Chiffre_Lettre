@@ -1,0 +1,16 @@
+/* Masque le bouton de copie par défaut, affiché dynamiquement en JS */
+.btn-copy {
+  display: none;
+}
+
+/* Masque le bouton de lecture vocale par défaut, affiché dynamiquement en JS */
+.btn-speak {
+  display: none;
+}
+
+
+/* Styles personnalisés pour Chiffres en lettres */
+.input-numeric {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.08em;
+}
