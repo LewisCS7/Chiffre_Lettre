@@ -21,7 +21,7 @@ Application web moderne et Progressive Web App (PWA) permettant de transformer i
 
 ## Aperçu
 
-![Aperçu de l'application](Capture_d'écran.png)
+![Aperçu de l'application](Capture-d'écran.png)
 
 ## Utilisation
 
