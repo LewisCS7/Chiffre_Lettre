@@ -1,6 +1,11 @@
-# Convertisseur – Chiffres en lettres
+# Convertisseur de nombres en lettres - PWA
 
-Application web moderne permettant de transformer instantanément un nombre (entier ou décimal) en toutes lettres en français, avec une interface professionnelle, zen et un arrière-plan dégradé.
+Application web moderne et Progressive Web App (PWA) permettant de transformer instantanément un nombre (entier ou décimal) en toutes lettres en français, avec une interface professionnelle, zen et un arrière-plan dégradé. Possible de l'installer et de l'utiliser hors-ligne.
+
+[![Licence MIT](https://img.shields.io/badge/licence-MIT-blue.svg)](LICENSE)
+![Langue](https://img.shields.io/badge/langue-Fran%C3%A7ais-blue)
+![Version](https://img.shields.io/badge/version-1.0.0-green)
+  
 
 ## Fonctionnalités
 
@@ -41,18 +46,32 @@ Application web moderne permettant de transformer instantanément un nombre (ent
 
 ## Technologies
 
-- **HTML5**
-- **JavaScript** (logique de conversion embarquée)
-- **Tailwind CSS** (CDN, design moderne)
+- **Frontend** :
+  - HTML5 / CSS3
+  - JavaScript (ES6+)
+  - Tailwind CSS v4 (via CDN)
+- **PWA** :
+  - Service Worker
+  - Manifest WebApp
+  - Icons optimisés
+- **APIs Web** :
+  - Clipboard API (copie)
+  - Web Speech API (synthèse vocale)
+  - Web App Manifest API
 
 ## Structure du projet
 
 ```
 Chiffre_Lettre/
-├── index.html         # Application principale (tout-en-un)
-├── background.jpg     # Image d'arrière-plan (optionnelle)
-├── style.css          # Feuille de style personnalisée (masquage dynamique des boutons, etc.)
-└── README.md          # Ce fichier
+├── index.html              # Application principale
+├── script.js               # Logique de conversion et interactions
+├── style.css               # Styles personnalisés
+├── manifest.webmanifest    # Configuration PWA
+├── sw.js                   # Service Worker
+├── background.jpg          # Image d'arrière-plan
+├── icon-192.png            # Icône PWA (192x192)
+├── icon-512.png            # Icône PWA (512x512)
+└── README.md               # Documentation
 ```
 
 ## Tests unitaires
@@ -68,7 +87,32 @@ Pour lancer les tests intégrés :
 
 ## Déploiement
 
-- Déposez simplement `index.html` (et l'image d'arrière-plan si utilisée) sur n'importe quel hébergement statique (GitHub Pages, Netlify, Vercel, etc.).
+1. Clonez le dépôt :
+```bash
+git clone https://github.com/LewisCS7/Chiffre_Lettre.git
+cd Chiffre_Lettre
+```
+
+2. Options de déploiement :
+   - Ouvrez `index.html` directement dans un navigateur
+   - Utilisez un serveur local (ex: Live Server dans VS Code)
+   - Déployez sur un hébergement statique :
+     - GitHub Pages
+     - Netlify
+     - Vercel
+     - Firebase Hosting
+
+3. Pour un déploiement PWA :
+   - Utilisez HTTPS
+   - Assurez-vous que tous les fichiers sont accessibles
+   - Vérifiez le manifest et le service worker
+
+## Contributions
+
+Les contributions sont les bienvenues ! N'hésitez pas à :
+- Ouvrir une issue pour signaler un bug
+- Proposer des améliorations via une pull request
+- Suggérer de nouvelles fonctionnalités
 
 ## Auteur
 
